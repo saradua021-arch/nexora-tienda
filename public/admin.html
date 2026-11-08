@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>NEXORA · Panel de administración</title>
+<style>
+:root{color-scheme:dark;--bg:#070a12;--p:#0e1424;--l:#222e4d;--t:#e6ecff;--m:#8fa0c8;--a:#38e1ff;--ok:#3ddc97;--err:#ff6b81}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:15px/1.5 system-ui,sans-serif;padding:20px}
+h1{font-size:22px;margin:0 0 16px}
+.top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+button{cursor:pointer;border:1px solid var(--l);background:var(--p);color:var(--t);border-radius:8px;padding:8px 14px;font:inherit}
+button.on,button.pri{background:var(--a);color:#04101a;border-color:var(--a)}
+input,select{background:var(--bg);color:var(--t);border:1px solid var(--l);border-radius:8px;padding:8px;font:inherit;min-width:0;width:100%}
+.login{max-width:380px;margin:12vh auto;background:var(--p);border:1px solid var(--l);border-radius:14px;padding:24px;display:grid;gap:12px}
+.wrap{overflow-x:auto;border:1px solid var(--l);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th,td{padding:8px;border-bottom:1px solid var(--l);text-align:left;vertical-align:top}
+th{color:var(--m);font-weight:500;background:var(--p)}
+.msg{min-height:22px;margin:8px 0}.err{color:var(--err)}.ok{color:var(--ok)}
+.muted{color:var(--m);font-size:13px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const app = document.getElementById("app");
+let tok = ""; try { tok = sessionStorage.getItem("nx_tk") || ""; } catch (e) {}
+let view = "products";
+const money = n => "$" + Number(n).toLocaleString("es-CO");
+const h = (tag, attrs = {}, ...kids) => {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) k.startsWith("on") ? (e[k] = v) : e.setAttribute(k, v);
+  e.append(...kids); return e;
+};
+async function api(method, url, body) {
+  const r = await fetch("/api/admin" + url, {
+    method, headers: { "Content-Type": "application/json", "x-admin-token": tok },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || "Error " + r.status);
+  return j;
+}
+function say(text, ok) { const m = document.getElementById("msg"); if (m) { m.textContent = text; m.className = "msg " + (ok ? "ok" : "err"); } }
+
+function login(msg) {
+  const i = h("input", { type: "password", placeholder: "Clave de administrador", autocomplete: "current-password" });
+  const go = async () => {
+    tok = i.value.trim();
+    try { await api("GET", "/products"); try { sessionStorage.setItem("nx_tk", tok); } catch (e) {} show(); }
+    catch (e) { tok = ""; login(e.message); }
+  };
+  i.onkeydown = e => { if (e.key === "Enter") go(); };
+  app.replaceChildren(h("div", { class: "login" }, h("h1", {}, "Panel NEXORA"), i,
+    h("button", { class: "pri", onclick: go }, "Entrar"), h("div", { class: "msg err" }, msg || "")));
+  i.focus();
+}
+
+async function show() {
+  const tabs = h("div", { class: "top" }, h("h1", { style: "margin:0 16px 0 0" }, "Panel NEXORA"),
+    ...[["products", "Productos"], ["orders", "Pedidos"], ["quotes", "Cotizaciones"], ["contacts", "Contactos"]].map(([k, t]) =>
+      h("button", { class: view === k ? "on" : "", onclick: () => { view = k; show(); } }, t)),
+    h("button", { onclick: () => { try { sessionStorage.removeItem("nx_tk"); } catch (e) {} tok = ""; login(); } }, "Salir"));
+  const box = h("div", {}, "Cargando…");
+  app.replaceChildren(tabs, h("div", { id: "msg", class: "msg" }), box);
+  try { box.replaceChildren(await ({ products: viewProducts, orders: viewOrders, quotes: viewQuotes, contacts: viewContacts })[view]()); }
+  catch (e) { if (/clave/i.test(e.message)) return login(e.message); say(e.message); }
+}
+
+async function viewProducts() {
+  const rows = await api("GET", "/products");
+  const F = ["name", "category", "price", "old_price", "stock", "image_url"];
+  const mk = p => {
+    const els = {};
+    const tr = h("tr", {});
+    F.forEach(f => { els[f] = h("input", { value: p[f] ?? "", type: ["price", "old_price", "stock"].includes(f) ? "number" : "text", min: "0", "aria-label": f }); tr.append(h("td", {}, els[f])); });
+    els.active = h("input", { type: "checkbox", style: "width:auto" }); els.active.checked = p.active !== false;
+    tr.append(h("td", {}, els.active));
+    tr.append(h("td", {}, h("button", { class: "pri", onclick: async () => {
+      const body = Object.fromEntries(F.map(f => [f, els[f].value])); body.active = els.active.checked;
+      try { p.id ? await api("PUT", "/products/" + p.id, body) : await api("POST", "/products", body); say("Guardado.", true); setTimeout(show, 500); }
+      catch (e) { say(e.message); }
+    } }, p.id ? "Guardar" : "Crear")));
+    return tr;
+  };
+  const head = h("tr", {}, ...["Nombre", "Categoría", "Precio (COP)", "Precio anterior", "Stock", "Imagen (img/1.jpg o https://…)", "Activo", ""].map(t => h("th", {}, t)));
+  return h("div", {}, h("p", { class: "muted" }, "Los productos desactivados dejan de verse en la tienda pero se conservan en el historial de pedidos. La última fila crea un producto nuevo."),
+    h("div", { class: "wrap" }, h("table", {}, h("thead", {}, head), h("tbody", {}, ...rows.map(mk), mk({})))));
+}
+
+const itemsText = a => a.map(i => `${i.qty} × ${i.name} (${money(i.unit_price)})`).join("; ");
+function statusView(path, rows, states, cols) {
+  const head = h("tr", {}, ...[...cols.map(c => c[0]), "Productos", "Estado"].map(t => h("th", {}, t)));
+  const body = rows.map(r => {
+    const s = h("select", { onchange: async () => { try { await api("PATCH", `${path}/${r.id}`, { status: s.value }); say("Estado actualizado.", true); } catch (e) { say(e.message); } } },
+      ...states.map(x => h("option", x === r.status ? { value: x, selected: "" } : { value: x }, x.replace("_", " "))));
+    return h("tr", {}, ...cols.map(c => h("td", {}, c[1](r))), h("td", {}, itemsText(r.items)), h("td", {}, s));
+  });
+  return h("div", { class: "wrap" }, h("table", {}, h("thead", {}, head), h("tbody", {}, ...(body.length ? body : [h("tr", {}, h("td", { colspan: "9" }, "Todavía no hay registros."))]))));
+}
+const when = r => new Date(r.created_at).toLocaleString("es-CO");
+async function viewOrders() {
+  return statusView("/orders", await api("GET", "/orders"), ["pagado_simulado", "enviado", "entregado", "cancelado"],
+    [["Código", r => r.code], ["Fecha", when], ["Cliente", r => `${r.customer_name} · ${r.customer_email}`], ["Total", r => money(r.total)]]);
+}
+async function viewQuotes() {
+  return statusView("/quotes", await api("GET", "/quotes"), ["nueva", "contactado", "cerrada", "descartada"],
+    [["Código", r => r.code], ["Fecha", when], ["Cliente", r => `${r.name} · ${r.email}`], ["Total", r => `${money(r.total)} (−${r.discount_pct} %)`]]);
+}
+
+async function viewContacts() {
+  const rows = await api("GET", "/contacts");
+  const states = ["nuevo", "contactado", "resuelto", "descartado"];
+  const head = h("tr", {}, ...["Fecha", "Nombre", "Teléfono", "Correo", "Motivo", "Mensaje", "Estado"].map(t => h("th", {}, t)));
+  const body = rows.map(r => {
+    const s = h("select", { onchange: async () => { try { await api("PATCH", "/contacts/" + r.id, { status: s.value }); say("Estado actualizado.", true); } catch (e) { say(e.message); } } },
+      ...states.map(x => h("option", x === r.status ? { value: x, selected: "" } : { value: x }, x)));
+    return h("tr", {}, h("td", {}, when(r)), h("td", {}, r.name), h("td", {}, r.phone), h("td", {}, r.email), h("td", {}, r.reason),
+      h("td", { style: "white-space:pre-wrap;min-width:220px" }, r.message), h("td", {}, s));
+  });
+  return h("div", { class: "wrap" }, h("table", {}, h("thead", {}, head), h("tbody", {}, ...(body.length ? body : [h("tr", {}, h("td", { colspan: "7" }, "Todavía no hay mensajes."))]))));
+}
+
+tok ? show() : login();
+</script>
+</body>
+</html>

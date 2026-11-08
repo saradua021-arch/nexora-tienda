@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXORA Tech · Tecnología que impulsa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#070a12;--panel:#0e1424;--panel2:#141c33;--line:#222e4d;--tx:#e6ecff;--mut:#8fa0c8;--a:#38e1ff;--b:#a56bff;--ok:#3ddc97;--err:#ff6b81;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 16px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,.logo{font-family:"Chakra Petch",system-ui,sans-serif;line-height:1.15;margin:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+.wrap{max-width:1160px;margin:auto;padding:0 20px}
+section{padding:84px 0}
+h2{font-size:clamp(28px,4vw,42px);margin-bottom:10px}
+.lead{color:var(--mut);max-width:60ch;margin:0 0 36px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(7,10,18,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:rgba(7,10,18,.9)}
+nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{font-weight:700;font-size:22px;letter-spacing:.04em}.logo i{font-style:normal;color:var(--a)}
+.links{display:flex;gap:22px;font-size:15px;color:var(--mut)}.links a:hover{color:var(--tx)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:500 15px "IBM Plex Sans",sans-serif;padding:12px 22px;border-radius:10px;color:#04101a;background:linear-gradient(120deg,var(--a),#7fb4ff 60%,var(--b));transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--tx);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--a)}
+.cartbtn{position:relative}.cnt{background:var(--b);color:#fff;border-radius:99px;font-size:12px;min-width:20px;height:20px;display:grid;place-items:center}
+.menu{display:none}
+.hero{padding:70px 0 40px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/48px 48px;opacity:.35;mask-image:radial-gradient(ellipse at 70% 40%,#000 0,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 0,transparent 70%)}
+.hgrid{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+h1{font-size:clamp(38px,6vw,72px);letter-spacing:-.01em}
+h1 span{background:linear-gradient(100deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);font-size:18px;max-width:52ch;margin:20px 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.stats{display:flex;gap:32px;margin-top:40px;color:var(--mut);font-size:14px}.stats b{display:block;color:var(--tx);font:700 26px "Chakra Petch"}
+.chip{position:relative;aspect-ratio:1;max-width:420px;margin:auto;width:100%}
+.chip svg{width:100%;height:100%;animation:fl 6s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-12px)}}
+.pulse{animation:pl 2.4s ease-in-out infinite}@keyframes pl{50%{opacity:.25}}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.pill{padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--mut);cursor:pointer;font:inherit;font-size:14px}
+.pill.on,.pill:hover{color:#04101a;background:var(--a);border-color:var(--a)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s}
+.card:hover{border-color:var(--a)}
+.ph{position:relative;overflow:hidden;aspect-ratio:3/2;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#1b2750,var(--panel2) 70%)}
+.ph img{cursor:zoom-in;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--panel2)}
+.ph svg{width:55%;height:55%}
+.cb{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cb small{color:var(--mut)}.cb h3{font-size:18px}
+.price{font:700 22px "Chakra Petch";color:var(--a)}.old{color:var(--mut);text-decoration:line-through;font-size:14px;margin-left:6px;font-weight:400}
+.row{display:flex;gap:8px;margin-top:auto}.row .btn{flex:1;justify-content:center;padding:10px}
+.tag{font-size:12px;color:var(--ok)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line)}
+th{background:var(--panel2);font:500 14px "IBM Plex Sans";color:var(--mut)}
+tr:last-child td{border:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+label{display:block;font-size:14px;color:var(--mut);margin:14px 0 6px}
+input,select,textarea{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:inherit}
+input:focus,select:focus,textarea:focus{border-color:var(--a);outline:0}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qrow{display:flex;gap:10px;align-items:end}.qrow>div{flex:1}
+.qlist{margin:16px 0;display:grid;gap:8px;font-size:14px}
+.qlist div{display:flex;justify-content:space-between;gap:10px;background:var(--panel2);padding:10px 14px;border-radius:10px}
+.sum{border-top:1px dashed var(--line);margin-top:14px;padding-top:14px;display:grid;gap:6px}
+.sum div{display:flex;justify-content:space-between}.sum .t{font:700 22px "Chakra Petch";color:var(--a)}
+.ok{display:none;margin-top:16px;padding:14px;border-radius:10px;background:rgba(61,220,151,.12);border:1px solid var(--ok);color:var(--ok)}
+.about{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px}
+.about .box h3{font-size:18px;margin:6px 0}.about p{color:var(--mut);margin:0;font-size:15px}
+.ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b));color:#04101a;font-weight:700}
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}.faq summary{cursor:pointer;font-weight:500}.faq p{color:var(--mut);margin:10px 0 0}
+.tst{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.tst p{margin:0 0 14px}.tst small{color:var(--mut)}
+footer{border-top:1px solid var(--line);padding:50px 0 30px;color:var(--mut);font-size:14px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px}.fg b{color:var(--tx);display:block;margin-bottom:10px}.fg a{display:block;padding:3px 0}.fg a:hover{color:var(--a)}
+.ov{position:fixed;inset:0;background:rgba(3,5,10,.7);z-index:40;display:none}.ov.on{display:block}
+.dr{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--panel);border-left:1px solid var(--line);z-index:50;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;padding:calc(22px + env(safe-area-inset-top,0px)) 22px calc(22px + env(safe-area-inset-bottom,0px))}
+.dr.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.x{background:none;border:1px solid var(--line);color:var(--tx);width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:18px}
+.dc{overflow-y:auto;flex:1}
+.it{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.it .ph{aspect-ratio:1;border-radius:10px}.it .ph svg{width:70%;height:70%}
+.qty{display:flex;gap:6px;align-items:center;margin-top:4px}.qty button{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);background:var(--bg);color:var(--tx);cursor:pointer}
+.warn{font-size:13px;background:rgba(165,107,255,.14);border:1px solid var(--b);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.cardv{background:linear-gradient(135deg,#1c2a5a,#4a2b8c);border-radius:14px;padding:18px;margin:12px 0;font-family:"Chakra Petch";letter-spacing:.12em}
+.cardv .n{font-size:20px;margin:18px 0 10px}.cardv .m{display:flex;justify-content:space-between;font-size:13px;opacity:.85}
+.spin{width:46px;height:46px;border:4px solid var(--line);border-top-color:var(--a);border-radius:50%;animation:sp 1s linear infinite;margin:40px auto}@keyframes sp{to{transform:rotate(360deg)}}
+.err{color:var(--err);font-size:13px;min-height:18px;margin-top:6px}
+.lb{position:fixed;inset:0;z-index:60;background:rgba(3,5,10,.92);display:none;place-items:center;padding:16px;cursor:zoom-out}.lb.on{display:grid}.lb img{max-width:min(1100px,100%);max-height:100%;border-radius:12px}
+.wa{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:15;background:#25d366;color:#04200f;font-weight:500;padding:12px 18px;border-radius:99px}
+@media(max-width:860px){.hgrid,.split,.about,.tst{grid-template-columns:1fr}.fg{grid-template-columns:1fr 1fr}.links{display:none;position:absolute;top:68px;left:0;right:0;background:var(--panel);flex-direction:column;padding:20px;border-bottom:1px solid var(--line)}.links.on{display:flex}.menu{display:block}section{padding:60px 0}.chip{max-width:280px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav>
+<a href="#inicio" class="logo">NEX<i>O</i>RA</a>
+<div class="links" id="links"><a href="#productos">Productos</a><a href="#precios">Lista de precios</a><a href="#cotizar">Cotizaciones</a><a href="#nosotros">Quiénes somos</a><a href="#contacto">Contacto</a></div>
+<div style="display:flex;gap:10px"><button class="btn ghost cartbtn" onclick="openCart()" aria-label="Abrir carrito">Carrito <span class="cnt" id="cnt">0</span></button><button class="btn ghost menu" onclick="links.classList.toggle('on')" aria-label="Menú">☰</button></div>
+</nav></div></header>
+
+<main>
+<section class="hero" id="inicio"><div class="wrap hgrid">
+<div><h1>El hardware que tu futuro <span>ya necesita</span></h1>
+<p>Portátiles, móviles, audio y accesorios de marcas líderes, con garantía oficial, envío a toda Colombia y asesoría de verdad antes y después de tu compra.</p>
+<div class="cta"><a class="btn" href="#productos">Ver catálogo</a><a class="btn ghost" href="#cotizar">Pedir cotización</a></div>
+<div class="stats"><div><b>12K+</b>clientes</div><div><b>48 h</b>envío nacional</div><div><b>12 m</b>garantía</div></div></div>
+<div class="chip"><svg viewBox="0 0 400 400" fill="none" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#38e1ff"/><stop offset="1" stop-color="#a56bff"/></linearGradient></defs>
+<g stroke="url(#g)" stroke-width="3" stroke-linecap="round"><path d="M120 60v50M160 60v50M200 60v50M240 60v50M280 60v50M120 290v50M160 290v50M200 290v50M240 290v50M280 290v50M60 120h50M60 160h50M60 200h50M60 240h50M60 280h50M290 120h50M290 160h50M290 200h50M290 240h50M290 280h50" class="pulse"/></g>
+<rect x="105" y="105" width="190" height="190" rx="22" fill="#0e1424" stroke="url(#g)" stroke-width="4"/><rect x="140" y="140" width="120" height="120" rx="14" fill="url(#g)" opacity=".18" stroke="url(#g)" stroke-width="2"/>
+<text x="200" y="213" text-anchor="middle" font-family="Chakra Petch,sans-serif" font-size="40" font-weight="700" fill="url(#g)">NX-1</text></svg></div>
+</div></section>
+
+<section id="productos"><div class="wrap">
+<h2>Productos</h2><p class="lead">Elige por categoría, agrega al carrito y paga en segundos. Todos los precios están en pesos colombianos e incluyen IVA.</p>
+<div class="bar" id="bar"></div><div class="grid" id="grid"></div></div></section>
+
+<section id="precios" style="background:var(--panel)"><div class="wrap">
+<h2>Lista de precios</h2><p class="lead">Referencias vigentes, con disponibilidad en bodega y garantía incluida.</p>
+<div class="tbl"><table><thead><tr><th>Producto</th><th>Categoría</th><th>Stock</th><th>Precio</th></tr></thead><tbody id="tb"></tbody></table></div></div></section>
+
+<section id="cotizar"><div class="wrap split">
+<div><h2>Cotizaciones</h2><p class="lead">Arma tu lista, indica la cantidad y recibe el estimado con IVA y descuento por volumen al instante. Un asesor te envía la propuesta formal a tu correo.</p>
+<div class="box"><b>Descuentos por volumen</b><div class="qlist"><div><span>3 a 5 unidades</span><b>3 %</b></div><div><span>6 a 10 unidades</span><b>6 %</b></div><div><span>Más de 10 unidades</span><b>10 %</b></div></div><small style="color:var(--mut)">Ideal para empresas, colegios y emprendimientos.</small></div></div>
+<div class="box"><div class="qrow"><div><label for="qp">Producto</label><select id="qp"></select></div><div style="max-width:90px"><label for="qq">Cant.</label><input id="qq" type="number" min="1" value="1"></div><button class="btn" onclick="qAdd()" type="button">Añadir</button></div>
+<div class="qlist" id="ql"><span style="color:var(--mut)">Aún no has añadido productos.</span></div>
+<div class="sum" id="qs"></div>
+<div class="f2"><div><label for="qn">Nombre o empresa</label><input id="qn"></div><div><label for="qe">Correo</label><input id="qe" type="email"></div></div>
+<button class="btn" style="margin-top:18px;width:100%;justify-content:center" onclick="qSend()" type="button">Solicitar cotización formal</button><div class="err" id="qerr"></div><div class="ok" id="qok"></div></div>
+</div></section>
+
+<section id="nosotros" style="background:var(--panel)"><div class="wrap">
+<h2>Quiénes somos</h2><p class="lead">Somos NEXORA, una tienda de tecnología nacida en Medellín en 2016. Empezamos reparando equipos y hoy equipamos hogares, oficinas y estudios creativos en todo el país. Creemos que comprar tecnología debe ser claro: precios visibles, asesoría honesta y soporte que responde.</p>
+<div class="about"><div class="box"><div class="ic">M</div><h3>Misión</h3><p>Acercar la mejor tecnología a cada persona y empresa, con acompañamiento experto en cada paso.</p></div><div class="box"><div class="ic">V</div><h3>Visión</h3><p>Ser la tienda tecnológica más confiable de Latinoamérica para 2030.</p></div><div class="box"><div class="ic">★</div><h3>Valores</h3><p>Transparencia, servicio cercano, garantía real y mejora constante.</p></div></div>
+<div class="about"><div class="box"><div class="ic">✓</div><h3>Garantía oficial</h3><p>Todos los equipos incluyen garantía de fábrica y soporte local.</p></div><div class="box"><div class="ic">⇄</div><h3>Envíos y devoluciones</h3><p>Despachamos en 48 horas y aceptas devoluciones hasta 10 días después.</p></div><div class="box"><div class="ic">🔒</div><h3>Pago seguro</h3><p>Tarjeta, PSE y transferencia con cifrado de extremo a extremo.</p></div></div>
+<h3 style="margin:56px 0 18px;font-size:26px">Lo que dicen nuestros clientes</h3>
+<div class="tst"><div class="box"><p>Compré cinco portátiles para mi oficina; la cotización llegó el mismo día y el asesor resolvió todas mis dudas.</p><small>Camila R., gerente administrativa</small></div><div class="box"><p>Los audífonos llegaron en dos días y con factura electrónica. Muy buena experiencia de compra.</p><small>Andrés G., diseñador</small></div><div class="box"><p>Tuve un problema con un cargador y lo cambiaron sin pelear. Eso ya dice todo.</p><small>Laura M., estudiante</small></div></div>
+</div></section>
+
+<section><div class="wrap split">
+<div><h2>Preguntas frecuentes</h2><div class="faq">
+<details><summary>¿Cuánto tarda el envío?</summary><p>De 2 a 4 días hábiles según la ciudad. En Medellín y el Valle de Aburrá, entrega el mismo día en pedidos antes de las 12 m.</p></details>
+<details><summary>¿Los productos tienen garantía?</summary><p>Sí, todos cuentan con garantía oficial del fabricante y 12 meses de respaldo NEXORA.</p></details>
+<details><summary>¿Entregan factura electrónica?</summary><p>Sí, la recibes en tu correo al confirmar el pago.</p></details>
+<details><summary>¿Cómo puedo pagar?</summary><p>Con tarjeta débito o crédito, PSE o transferencia bancaria.</p></details></div></div>
+<div class="box" id="contacto"><h2 style="font-size:30px">Contacto</h2><p style="color:var(--mut);margin:0">Déjanos tus datos y un asesor te llamará en menos de 24 horas hábiles.</p>
+<div class="f2"><div><label for="cn">Nombre completo</label><input id="cn" autocomplete="name"></div><div><label for="ct">Teléfono</label><input id="ct" type="tel" autocomplete="tel"></div></div>
+<label for="ce">Correo electrónico</label><input id="ce" type="email" autocomplete="email">
+<label for="cs">Motivo</label><select id="cs"><option>Asesoría de compra</option><option>Cotización empresarial</option><option>Soporte y garantía</option><option>Otro</option></select>
+<label for="cm">Mensaje</label><textarea id="cm" rows="4"></textarea>
+<button class="btn" style="margin-top:18px;width:100%;justify-content:center" onclick="cSend()" type="button">Enviar mensaje</button><div class="err" id="cerr"></div><div class="ok" id="cok"></div></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:var(--tx)">NEX<i>O</i>RA</div><p>Calle 10 #43D-30, El Poblado, Medellín<br>+57 300 000 0000 · ventas@nexora.example</p><p>Lun a sáb, 8:00 a. m. a 6:00 p. m.</p></div>
+<div><b>Tienda</b><a href="#productos">Productos</a><a href="#precios">Precios</a><a href="#cotizar">Cotizaciones</a></div>
+<div><b>Empresa</b><a href="#nosotros">Quiénes somos</a><a href="#contacto">Contacto</a><a href="#nosotros">Garantías</a></div>
+<div><b>Legal</b><a href="#inicio">Términos y condiciones</a><a href="#inicio">Política de privacidad</a><a href="#inicio">Derecho de retracto</a></div></div>
+<div>© 2026 NEXORA Tech. Sitio de demostración: los pagos y pedidos son simulados.</div></div></footer>
+<a class="wa" href="#contacto">💬 Habla con un asesor</a>
+
+<div class="ov" id="ov" onclick="closeCart()"></div>
+<div class="lb" id="lb" onclick="this.classList.remove('on')"><img alt=""></div>
+<aside class="dr" id="dr" aria-label="Carrito y pago"><div class="dh"><h3 id="dt">Tu carrito</h3><button class="x" onclick="closeCart()" aria-label="Cerrar">✕</button></div><div class="dc" id="dc"></div></aside>
+
+<script>
+const $=s=>document.querySelector(s),money=n=>"$"+Math.round(n).toLocaleString("es-CO");
+const ico={
+Portátiles:'<rect x="14" y="18" width="72" height="46" rx="5"/><path d="M6 72h88l-6 8H12z"/>',
+Móviles:'<rect x="30" y="8" width="40" height="84" rx="8"/><path d="M44 82h12"/>',
+Audio:'<path d="M20 60V50a30 30 0 0 1 60 0v10"/><rect x="14" y="56" width="14" height="26" rx="5"/><rect x="72" y="56" width="14" height="26" rx="5"/>',
+Wearables:'<rect x="30" y="26" width="40" height="48" rx="12"/><path d="M38 26l3-14h18l3 14M38 74l3 14h18l3-14M50 42v10l7 4"/>',
+Monitores:'<rect x="10" y="14" width="80" height="52" rx="5"/><path d="M50 66v14M32 84h36"/>',
+Accesorios:'<rect x="8" y="34" width="84" height="32" rx="6"/><path d="M20 46h4M32 46h4M44 46h4M56 46h4M68 46h4M80 46h4M24 56h52"/>'};
+const svg=c=>`<svg viewBox="0 0 100 100" fill="none" stroke="url(#g)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#38e1ff"/><stop offset="1" stop-color="#a56bff"/></linearGradient></defs>${ico[c]||ico.Accesorios}</svg>`;
+let P=[
+{id:1,n:"Portátil Vektor 14″ Ryzen 7",c:"Portátiles",p:3290000,o:3690000,s:12},
+{id:2,n:"Portátil Forge 16″ RTX 4060",c:"Portátiles",p:5890000,o:6390000,s:5},
+{id:3,n:"Smartphone Orbit X 256 GB",c:"Móviles",p:2190000,o:2490000,s:20},
+{id:4,n:"Smartphone Lite A5 128 GB",c:"Móviles",p:899000,o:0,s:34},
+{id:5,n:"Audífonos Pulse ANC inalámbricos",c:"Audio",p:459000,o:549000,s:41},
+{id:6,n:"Parlante Boom Mini resistente al agua",c:"Audio",p:229000,o:0,s:27},
+{id:7,n:"Smartwatch Pulse S2 GPS",c:"Wearables",p:679000,o:790000,s:18},
+{id:8,n:"Monitor Vision 27″ 2K 165 Hz",c:"Monitores",p:1190000,o:1390000,s:9},
+{id:9,n:"Teclado mecánico Kairo RGB",c:"Accesorios",p:289000,o:0,s:50},
+{id:10,n:"Mouse inalámbrico Glide Pro",c:"Accesorios",p:149000,o:179000,s:60}];
+P.forEach(p=>{if(p.id!=6)p.img="img/"+p.id+".jpg"});
+const esc=s=>String(s).replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
+let cart={},cat="Todos";
+const bar=()=>{const cats=["Todos",...new Set(P.map(p=>p.c))];$("#bar").innerHTML=cats.map(c=>`<button class="pill ${c==cat?"on":""}" onclick="setCat('${c}')">${c}</button>`).join("")};
+function setCat(c){cat=c;document.querySelectorAll(".pill").forEach(b=>b.classList.toggle("on",b.textContent==c));draw()}
+function draw(){$("#grid").innerHTML=P.filter(p=>cat=="Todos"||p.c==cat).map(p=>`<article class="card"><div class="ph">${svg(p.c)}${pic(p.id,p.n)}</div><div class="cb"><small>${p.c}</small><h3>${p.n}</h3><div><span class="price">${money(p.p)}</span>${p.o?`<span class="old">${money(p.o)}</span>`:""}</div><span class="tag">● ${p.s} en stock</span><div class="row"><button class="btn" onclick="add(${p.id})">Agregar</button><button class="btn ghost" onclick="qPre(${p.id})">Cotizar</button></div></div></article>`).join("")}
+function tbq(){$("#tb").innerHTML=P.map(p=>`<tr><td>${p.n}</td><td>${p.c}</td><td>${p.s} uds.</td><td><b>${money(p.p)}</b></td></tr>`).join("");
+$("#qp").innerHTML=P.map(p=>`<option value="${p.id}">${p.n} · ${money(p.p)}</option>`).join("")}
+const pic=(id,alt)=>{const p=byId(id);return p&&p.img?`<img src="${p.img}" alt="${alt}" loading="lazy" onerror="this.remove()">`:""};
+const byId=id=>P.find(p=>p.id==id);
+async function load(){try{const r=await fetch("/api/products");if(r.ok){const d=await r.json();if(d.length)P=d.map(x=>({id:x.id,n:esc(x.name),c:esc(x.category),p:+x.price,o:+x.old_price||0,s:x.stock,img:/^(\/|img\/|https:\/\/)/.test(x.image_url||"")?esc(x.image_url):""}))}}catch(e){}
+if(cat!="Todos"&&!P.some(p=>p.c==cat))cat="Todos";bar();draw();tbq();Object.keys(cart).forEach(i=>{if(!byId(i))delete cart[i]});count()}
+load();
+/* Carrito */
+function count(){$("#cnt").textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
+function add(id){cart[id]=(cart[id]||0)+1;count();openCart()}
+function openCart(){$("#ov").classList.add("on");$("#dr").classList.add("on");viewCart()}
+function closeCart(){$("#ov").classList.remove("on");$("#dr").classList.remove("on")}
+const tot=()=>Object.entries(cart).reduce((a,[i,q])=>a+byId(i).p*q,0);
+const ship=()=>tot()>=500000||!tot()?0:15000;
+function chg(id,d){cart[id]+=d;if(cart[id]<=0)delete cart[id];count();viewCart()}
+function viewCart(){$("#dt").textContent="Tu carrito";const e=Object.entries(cart);
+if(!e.length){$("#dc").innerHTML='<p style="color:var(--mut)">Tu carrito está vacío. Agrega un producto del catálogo para empezar.</p>';return}
+$("#dc").innerHTML=e.map(([i,q])=>{const p=byId(i);return`<div class="it"><div class="ph">${svg(p.c)}${pic(p.id,"")}</div><div><b style="font-size:14px">${p.n}</b><div class="qty"><button onclick="chg(${i},-1)">−</button>${q}<button onclick="chg(${i},1)">+</button></div></div><b>${money(p.p*q)}</b></div>`}).join("")+
+`<div class="sum"><div><span>Subtotal</span><span>${money(tot())}</span></div><div><span>Envío ${ship()?"":"(gratis desde $500.000)"}</span><span>${ship()?money(ship()):"$0"}</span></div><div class="t"><span>Total</span><span>${money(tot()+ship())}</span></div></div><button class="btn" style="width:100%;justify-content:center;margin-top:18px" onclick="viewPay()">Ir al pago</button>`}
+/* Pasarela simulada */
+function viewPay(){$("#dt").textContent="Pago seguro";$("#dc").innerHTML=`<div class="warn">Simulación: no se realiza ningún cobro real. No ingreses datos de tu tarjeta verdadera.</div>
+<label for="pn">Nombre del titular</label><input id="pn" placeholder="Como aparece en la tarjeta">
+<label for="pe">Correo para el recibo</label><input id="pe" type="email">
+<div class="cardv"><div>NEXORA PAY</div><div class="n" id="vn">•••• •••• •••• ••••</div><div class="m"><span id="vh">TITULAR</span><span id="vx">MM/AA</span></div></div>
+<label for="pc">Número de tarjeta</label><input id="pc" inputmode="numeric" maxlength="19" placeholder="4242 4242 4242 4242">
+<div class="f2"><div><label for="px">Vence</label><input id="px" maxlength="5" placeholder="MM/AA"></div><div><label for="pv">CVV</label><input id="pv" inputmode="numeric" maxlength="4" placeholder="123"></div></div>
+<div class="err" id="perr"></div>
+<button class="btn" style="width:100%;justify-content:center;margin-top:10px" onclick="pay()">Pagar ${money(tot()+ship())}</button>
+<button class="btn ghost" style="width:100%;justify-content:center;margin-top:10px" onclick="viewCart()">Volver al carrito</button>`;
+$("#pc").oninput=e=>{let v=e.target.value.replace(/\D/g,"").slice(0,16);e.target.value=v.replace(/(.{4})/g,"$1 ").trim();$("#vn").textContent=(v.padEnd(16,"•")).replace(/(.{4})/g,"$1 ").trim()};
+$("#px").oninput=e=>{let v=e.target.value.replace(/\D/g,"").slice(0,4);if(v.length>2)v=v.slice(0,2)+"/"+v.slice(2);e.target.value=v;$("#vx").textContent=v||"MM/AA"};
+$("#pn").oninput=e=>$("#vh").textContent=e.target.value.toUpperCase()||"TITULAR"}
+function pay(){const n=$("#pn").value.trim(),m=$("#pe").value.trim(),c=$("#pc").value.replace(/\s/g,""),x=$("#px").value,v=$("#pv").value;let r="";
+const mm=+x.slice(0,2);
+if(n.length<3)r="Escribe el nombre del titular.";else if(!/^\S+@\S+\.\S+$/.test(m))r="Escribe un correo válido.";else if(c.length!=16)r="El número de tarjeta debe tener 16 dígitos.";else if(!/^\d\d\/\d\d$/.test(x)||mm<1||mm>12)r="Revisa la fecha de vencimiento (MM/AA).";else if(v.length<3)r="El CVV debe tener 3 o 4 dígitos.";
+if(r){$("#perr").textContent=r;return}
+let total=tot()+ship();$("#dt").textContent="Procesando";$("#dc").innerHTML='<div class="spin"></div><p style="text-align:center;color:var(--mut)">Validando el pago de forma segura…</p>';
+setTimeout(async()=>{if(c.endsWith("0002")){$("#dt").textContent="Pago rechazado";$("#dc").innerHTML='<p class="err" style="font-size:16px">El banco rechazó la transacción de prueba. Intenta con otra tarjeta.</p><button class="btn" onclick="viewPay()">Reintentar</button>';return}
+let o="NX-"+Math.floor(100000+Math.random()*900000);const items=Object.entries(cart).map(([i,q])=>({id:+i,qty:q}));try{const r=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({customer:{name:n,email:m},items})});const j=await r.json();if(!r.ok){$("#dt").textContent="No se pudo crear el pedido";$("#dc").innerHTML=`<p class="err" style="font-size:16px">${esc(j.error||"Error")}</p><button class="btn" onclick="load();viewCart()">Volver al carrito</button>`;return}o=j.code;total=j.total}catch(e){}const rows=Object.entries(cart).map(([i,q])=>`<div style="display:flex;justify-content:space-between;gap:10px;font-size:14px"><span>${q} × ${byId(i).n}</span><span>${money(byId(i).p*q)}</span></div>`).join("");
+$("#dt").textContent="¡Pago aprobado!";$("#dc").innerHTML=`<div class="ok" style="display:block;margin:0 0 16px">Pedido <b>${o}</b> confirmado. Enviamos el recibo a ${m}.</div><div class="qlist">${rows}</div><div class="sum"><div class="t"><span>Total pagado</span><span>${money(total)}</span></div><div><span>Tarjeta</span><span>•••• ${c.slice(-4)}</span></div></div><p style="color:var(--mut);font-size:14px">Entrega estimada: 2 a 4 días hábiles. Esto fue una simulación y no se hizo ningún cobro.</p><button class="btn" onclick="cart={};count();closeCart();load()">Seguir comprando</button>`},2200)}
+/* Cotización */
+let Q={};
+function qPre(id){$("#qp").value=id;location.hash="cotizar"}
+function qAdd(){const i=$("#qp").value,q=Math.max(1,+$("#qq").value||1);Q[i]=(Q[i]||0)+q;qDraw()}
+function qRm(i){delete Q[i];qDraw()}
+function qDraw(){const e=Object.entries(Q);$("#ql").innerHTML=e.length?e.map(([i,q])=>`<div><span>${q} × ${byId(i).n}</span><span>${money(byId(i).p*q)} <button class="x" style="width:26px;height:26px;font-size:12px" onclick="qRm(${i})" aria-label="Quitar">✕</button></span></div>`).join(""):'<span style="color:var(--mut)">Aún no has añadido productos.</span>';
+const u=e.reduce((a,[,q])=>a+q,0),s=e.reduce((a,[i,q])=>a+byId(i).p*q,0),d=u>10?.1:u>5?.06:u>2?.03:0,dv=s*d;
+$("#qs").innerHTML=u?`<div><span>Subtotal (${u} uds.)</span><span>${money(s)}</span></div><div><span>Descuento ${d*100} %</span><span>−${money(dv)}</span></div><div class="t"><span>Total estimado</span><span>${money(s-dv)}</span></div>`:""}
+async function qSend(){const n=$("#qn").value.trim(),m=$("#qe").value.trim();
+if(!Object.keys(Q).length)return $("#qerr").textContent="Añade al menos un producto.";if(n.length<2||!/^\S+@\S+\.\S+$/.test(m))return $("#qerr").textContent="Completa tu nombre y un correo válido.";
+$("#qerr").textContent="";let code="COT-"+Math.floor(1000+Math.random()*9000);try{const r=await fetch("/api/quotes",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:n,email:m,items:Object.entries(Q).map(([i,q])=>({id:+i,qty:q}))})});const j=await r.json();if(!r.ok)return $("#qerr").textContent=j.error||"No se pudo enviar la solicitud.";code=j.code}catch(e){}const o=$("#qok");o.style.display="block";o.textContent="Solicitud "+code+" recibida. Te enviaremos la propuesta formal a "+m+" en menos de 24 horas.";Q={};qDraw()}
+async function cSend(){const v=i=>$(i).value.trim();
+if(v("#cn").length<3||v("#ct").replace(/\D/g,"").length<7||!/^\S+@\S+\.\S+$/.test(v("#ce"))||v("#cm").length<5)return $("#cerr").textContent="Completa todos los campos con datos válidos.";
+$("#cerr").textContent="";try{const r=await fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:v("#cn"),phone:v("#ct"),email:v("#ce"),reason:$("#cs").value,message:v("#cm")})});const j=await r.json().catch(()=>({}));if(!r.ok)return $("#cerr").textContent=j.error||"No se pudo enviar el mensaje."}catch(e){return $("#cerr").textContent="No pudimos conectar con el servidor. Intenta de nuevo."}const o=$("#cok");o.style.display="block";o.textContent="Gracias, "+v("#cn").split(" ")[0]+". Un asesor te contactará pronto al "+v("#ct")+".";["#cn","#ct","#ce","#cm"].forEach(i=>$(i).value="")}
+document.addEventListener("click",e=>{const i=e.target.closest(".card .ph img");if(i){$("#lb img").src=i.src;$("#lb").classList.add("on")}});
+document.querySelectorAll("#links a").forEach(a=>a.onclick=()=>$("#links").classList.remove("on"));
+</script>
+</body>
+</html>
